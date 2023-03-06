@@ -1,4 +1,12 @@
-[toc]
+- [2. Nova](#2-nova)
+  - [2.1 指定numa创建虚拟机](#21-指定numa创建虚拟机)
+  - [2.2 查看虚拟机virtio](#22-查看虚拟机virtio)
+  - [3. flavor](#3-flavor)
+    - [3.1 创建flavor](#31-创建flavor)
+- [4. Project](#4-project)
+  - [4.1 创建租户](#41-创建租户)
+- [5. Glance](#5-glance)
+  - [5.1 上传镜像\&设置网卡多队列](#51-上传镜像设置网卡多队列)
 
 ## 1.Neutron
 
