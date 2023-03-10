@@ -1,12 +1,4 @@
-- [2. Nova](#2-nova)
-  - [2.1 指定numa创建虚拟机](#21-指定numa创建虚拟机)
-  - [2.2 查看虚拟机virtio](#22-查看虚拟机virtio)
-  - [3. flavor](#3-flavor)
-    - [3.1 创建flavor](#31-创建flavor)
-- [4. Project](#4-project)
-  - [4.1 创建租户](#41-创建租户)
-- [5. Glance](#5-glance)
-  - [5.1 上传镜像\&设置网卡多队列](#51-上传镜像设置网卡多队列)
+[toc]
 
 ## 1.Neutron
 
@@ -75,11 +67,22 @@ openstack network qos rule create --type bandwidth-limit --max-kbps 500000 --max
 port设置qos
 openstack port set --qos-policy QoS1 Port
 修改qos
-openstack network qos rule set --max-kbps 800000 --max-burst-kbits 150000 --ingress QoS1_rule_id
+openstack network qos rule set --max-kbps 800000 --max-burst-kbits 150000 --ingress policy_id rule_id
 port取消qos
-openstack port unset --qos-policy QoS1 Port1
+openstack port unset --qos-policy Port1
 network设置qos
 openstack network set --qos-policy QoS2 Net1
+查看qos policy列表
+openstack network qos policy list
+查看rule列表
+openstack network qos rule list policy_id
+查看rule详情
+openstack network qos rule show policy rule_id
+
+手动设置vf的速率
+ip link set dev enp2s0f0 vf 5 max_tx_rate 200
+
+
 ```
 
 ## 1.6. ovs
@@ -177,4 +180,17 @@ openstack flavor create 1c_2r_40g.1g --vcpus 1 --ram 2048 --disk 40 --property h
 ```
 bash
 openstack image create --container-format bare --disk-format raw --file /tmp/CentOS-7-x86_64-GenericCloud-7.9.2009-cmcc.qcow2 --property hw_vif_multiqueue_enabled="yes" --public centos79
+```
+
+## 6. numa
+
+```
+
+
+调整numa大小
+echo 50 > /sys/devices/system/node/node5/hugepages/hugepages-1048576kB/nr_hugepages
+查看numa大小
+cat /sys/devices/system/node/node2/hugepages/hugepages-1048576kB/nr_hugepages
+指定numa节点创建虚拟机
+openstack server create --image BCLinux-8.1-kvm-secure-multi-ecloud-20G-CCM --flavor ccm-flavor --network vlan-2013 --hint numa='[{"numa_id": 2}]' --availability-zone nova:vim-compute-2 vm2-1
 ```
