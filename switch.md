@@ -30,6 +30,8 @@
 - [8. 中兴交换机](#8-中兴交换机)
 - [9. 浪潮交换机](#9-浪潮交换机)
 - [10. vlan子接口](#10-vlan子接口)
+- [11. stp](#11-stp)
+
 ## 1. 查看交换机速率和双工模式
 
 ```bash
@@ -682,3 +684,57 @@ https://blog.csdn.net/qq_20817327/article/details/106996447
 https://blog.csdn.net/qq_20817327/category_10796566.html
 
 ```
+
+## 11. stp
+
+# 12. 两个虚拟机互ping
+
+![1678719163435](image/switch/1678719163435.png)
+
+```bash
+[Huawei]int g0/0/1
+[Huawei-GigabitEthernet0/0/1]port link-type access
+[Huawei-GigabitEthernet0/0/1]port default vlan 10
+[Huawei-GigabitEthernet0/0/1]dis this
+#
+interface GigabitEthernet0/0/1
+ port link-type access
+ port default vlan 10
+#
+return
+
+[Huawei]int g0/0/2
+[Huawei-GigabitEthernet0/0/2]port link-type access
+[Huawei-GigabitEthernet0/0/2]port default vlan 20
+[Huawei-GigabitEthernet0/0/2]dis this
+#
+interface GigabitEthernet0/0/2
+ port link-type access
+ port default vlan 20
+#
+return
+
+[Huawei]int vlanif 10
+[Huawei-Vlanif10]ip address 192.168.0.1 24
+[Huawei-Vlanif10]dis this
+#
+interface Vlanif10
+ ip address 192.168.0.1 255.255.255.0
+#
+return
+[Huawei-Vlanif10]
+
+[Huawei]int vlanif 20
+[Huawei-Vlanif20]ip address 192.168.1.1 24
+[Huawei-Vlanif20]dis this
+#
+interface Vlanif20
+ ip address 192.168.1.1 255.255.255.0
+#
+return
+
+```
+
+![1678719258086](image/switch/1678719258086.png)
+
+## 13.
