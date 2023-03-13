@@ -184,13 +184,14 @@ openstack image create --container-format bare --disk-format raw --file /tmp/Cen
 
 ## 6. numa
 
-```
-
-
+```bash
 调整numa大小
 echo 50 > /sys/devices/system/node/node5/hugepages/hugepages-1048576kB/nr_hugepages
 查看numa大小
 cat /sys/devices/system/node/node2/hugepages/hugepages-1048576kB/nr_hugepages
 指定numa节点创建虚拟机
 openstack server create --image BCLinux-8.1-kvm-secure-multi-ecloud-20G-CCM --flavor ccm-flavor --network vlan-2013 --hint numa='[{"numa_id": 2}]' --availability-zone nova:vim-compute-2 vm2-1
+
+
+
 ```
