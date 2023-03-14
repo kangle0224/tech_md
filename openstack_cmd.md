@@ -195,3 +195,10 @@ openstack server create --image BCLinux-8.1-kvm-secure-multi-ecloud-20G-CCM --fl
 
 
 ```
+
+
+# 7. l2gw
+
+```
+https://docs.openstack.org/networking-l2gw/stein/usage.html
+```
